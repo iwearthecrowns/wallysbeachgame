@@ -5,14 +5,15 @@ function checkScore () {
 }
 function evaluateGuess (text: string) {
     match = 0
-    for (let index = 0; index <= beachList.length - 1; index++) {
-        if (beachList[index] == text) {
+    for (let index = 0; index <= picnicBasket.length - 1; index++) {
+        if (picnicBasket[index] == text) {
             match = 1
         }
     }
     if (match == 1) {
         music.baDing.play()
         info.changeScoreBy(1)
+        game.splash("Your score is " + info.score())
     } else {
         music.playMelody("C5 B C5 B - - - - ", 480)
         strikes += 1
@@ -27,7 +28,7 @@ function checkStrikes () {
 }
 function whatDidYouSee () {
     input2 = game.askForString("What do you see on Wally's beach?")
-    beachList = [
+    picnicBasket = [
     "sailboat",
     "children",
     "flag",
@@ -39,28 +40,10 @@ function whatDidYouSee () {
     "burger"
     ]
 }
-let beachList: string[] = []
+let picnicBasket: string[] = []
 let match = 0
 let input2 = ""
 let strikes = 0
-let mySprite = sprites.create(img`
-    . . . . c c c b b b b b . . . . 
-    . . c c b 4 4 4 4 4 4 b b b . . 
-    . c c 4 4 4 4 4 5 4 4 4 4 b c . 
-    . e 4 4 4 4 4 4 4 4 4 5 4 4 e . 
-    e b 4 5 4 4 5 4 4 4 4 4 4 4 b c 
-    e b 4 4 4 4 4 4 4 4 4 4 5 4 4 e 
-    e b b 4 4 4 4 4 4 4 4 4 4 4 b e 
-    . e b 4 4 4 4 4 5 4 4 4 4 b e . 
-    8 7 e e b 4 4 4 4 4 4 b e e 6 8 
-    8 7 2 e e e e e e e e e e 2 7 8 
-    e 6 6 2 2 2 2 2 2 2 2 2 2 6 c e 
-    e c 6 7 6 6 7 7 7 6 6 7 6 c c e 
-    e b e 8 8 c c 8 8 c c c 8 e b e 
-    e e b e c c e e e e e c e b e e 
-    . e e b b 4 4 4 4 4 4 4 4 e e . 
-    . . . c c c c c e e e e e . . . 
-    `, SpriteKind.Player)
 scene.setBackgroundImage(img`
     2222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111
     2222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111
@@ -183,7 +166,49 @@ scene.setBackgroundImage(img`
     1111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222
     1111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222
     `)
-pause(1000)
+let mySprite = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+mySprite.setImage(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `)
+let list = [sprites.food.smallBurger, sprites.food.smallApple, sprites.food.smallTaco, sprites.food.smallDonut, sprites.food.smallPizza]
+for (let index2 = 0; index2 <= list.length - 1; index2++) {
+    mySprite.setImage(list[index2])
+    mySprite.setPosition(randint(0, scene.screenWidth()), randint(0, scene.screenHeight()))
+    music.playTone(262, music.beat(BeatFraction.Whole))
+}
+pause(200)
 whatDidYouSee()
 info.setScore(0)
 strikes = 0
