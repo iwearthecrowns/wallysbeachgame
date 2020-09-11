@@ -27,21 +27,10 @@ function checkStrikes () {
         game.over(false)
     }
 }
-function whatDidYouSee () {
-    input2 = game.askForString("What is in Yogi's picnic basket?")
-    picnicBasket = [
-    "pizza",
-    "donut",
-    "taco",
-    "apple",
-    "burger",
-    "aaa"
-    ]
-}
-let picnicBasket: string[] = []
 let match = 0
 let input2 = ""
 let strikes = 0
+let picnicBasket: string[] = []
 scene.setBackgroundImage(img`
     2222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111
     2222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111
@@ -201,6 +190,14 @@ mySprite.setImage(img`
     . . . . . . . . . . . . . . . . 
     `)
 let list = [sprites.food.smallBurger, sprites.food.smallApple, sprites.food.smallTaco, sprites.food.smallDonut, sprites.food.smallPizza]
+picnicBasket = [
+"pizza",
+"donut",
+"taco",
+"apple",
+"burger",
+"aaa"
+]
 for (let index2 = 0; index2 <= list.length - 1; index2++) {
     mySprite.setImage(list[index2])
     mySprite.setPosition(randint(0, scene.screenWidth()), randint(0, scene.screenHeight()))
@@ -211,6 +208,6 @@ mySprite.destroy()
 info.setScore(0)
 strikes = 0
 while (info.score() < 5 || strikes < 3) {
-    whatDidYouSee()
+    input2 = game.askForString("What was in Yogi's picnic basket?")
     evaluateGuess(input2)
 }
