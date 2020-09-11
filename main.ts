@@ -17,6 +17,7 @@ function evaluateGuess (text: string) {
     } else {
         music.playMelody("C5 B C5 B - - - - ", 480)
         strikes += 1
+        game.splash("That's " + strikes + " strikes!")
     }
     checkScore()
     checkStrikes()
@@ -27,17 +28,14 @@ function checkStrikes () {
     }
 }
 function whatDidYouSee () {
-    input2 = game.askForString("What do you see on Wally's beach?")
+    input2 = game.askForString("What is in Yogi's picnic basket?")
     picnicBasket = [
-    "sailboat",
-    "children",
-    "flag",
-    "beach bag",
-    "clouds",
-    "ship",
-    "umbrella",
-    "aaa",
-    "burger"
+    "pizza",
+    "donut",
+    "taco",
+    "apple",
+    "burger",
+    "aaa"
     ]
 }
 let picnicBasket: string[] = []
@@ -209,7 +207,10 @@ for (let index2 = 0; index2 <= list.length - 1; index2++) {
     music.playTone(262, music.beat(BeatFraction.Whole))
 }
 pause(200)
-whatDidYouSee()
+mySprite.destroy()
 info.setScore(0)
 strikes = 0
-evaluateGuess(input2)
+while (info.score() < 5 || strikes < 3) {
+    whatDidYouSee()
+    evaluateGuess(input2)
+}
