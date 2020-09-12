@@ -190,14 +190,7 @@ mySprite.setImage(img`
     . . . . . . . . . . . . . . . . 
     `)
 let list = [sprites.food.smallBurger, sprites.food.smallApple, sprites.food.smallTaco, sprites.food.smallDonut, sprites.food.smallPizza]
-picnicBasket = [
-"pizza",
-"donut",
-"taco",
-"apple",
-"burger",
-"aaa"
-]
+picnicBasket = ["pizza", "donut", "taco", "apple", "burger"]
 for (let index2 = 0; index2 <= list.length - 1; index2++) {
     mySprite.setImage(list[index2])
     mySprite.setPosition(randint(0, scene.screenWidth()), randint(0, scene.screenHeight()))
